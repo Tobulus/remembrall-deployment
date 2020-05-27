@@ -1,0 +1,24 @@
+version: '3.3'
+
+services:
+  rmbr-application:
+    image: $IMAGE
+    ports:
+      - "8080:8080"
+    depends_on:
+      - maria-db
+
+  maria-db:
+    image: mariadb:10.4.8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: rmbr
+      MYSQL_USER: tobi
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - maria-db-storage:/var/lib/mysql
+
+volumes:
+  maria-db-storage:
