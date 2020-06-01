@@ -18,9 +18,9 @@ rm $tmp_file
 echo "Deleted local file '${tmp_file_name}'"
 
 ssh $server "
-   docker load ${tmp_file_name}
+   docker load < ${tmp_file_name}
    rm ${tmp_file_name}
-   cd /data
+   cd /data/compose
    docker-compose down
    IMAGE=${image} docker-compose up
 "

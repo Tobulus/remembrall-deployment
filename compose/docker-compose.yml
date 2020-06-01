@@ -1,7 +1,7 @@
 version: '3.3'
 
 services:
-  rmbr:
+  remembrall:
     image: $IMAGE
     ports:
       - "8080:8080"
@@ -12,18 +12,21 @@ services:
     image: nginx:1.18.0
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ../nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /data/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/live/remembrall.de/fullchain.pem:/etc/nginx/certs/remembrall.pem
+      - /etc/letsencrypt/live/remembrall.de/privkey.pem:/etc/nginx/certs/remembrall.key
     depends_on:
-      - rmbr 
+      - remembrall 
 
   maria-db:
     image: mariadb:10.4.8
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: rmbr
-      MYSQL_USER: rmbr
+      MYSQL_DATABASE: remembrall
+      MYSQL_USER: remembrall
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
