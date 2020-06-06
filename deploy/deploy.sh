@@ -8,13 +8,13 @@ image=$2
 tmp_file_name="/tmp/${RANDOM}.tar.gz"
 
 echo "Saving docker image to compressed file ..."
-docker save ${image} | gzip > ${tmp_file}
+docker save ${image} | gzip > ${tmp_file_name}
 echo "Created file '${tmp_file}'"
 
-scp $tmp_file '${server}/tmp'
+scp $tmp_file_name ${server}:/tmp
 echo "Copied file to server"
 
-rm $tmp_file
+rm $tmp_file_name
 echo "Deleted local file '${tmp_file_name}'"
 
 ssh $server "
@@ -22,7 +22,7 @@ ssh $server "
    rm ${tmp_file_name}
    cd /data/compose
    docker-compose down
-   IMAGE=${image} docker-compose up
+   IMAGE=${image} docker-compose up -d
 "
 echo "Restarted application"
 
