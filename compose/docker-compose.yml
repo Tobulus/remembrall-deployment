@@ -5,7 +5,8 @@ services:
     image: $IMAGE
     depends_on:
       - maria-db
-
+    volumes:
+      - /data/firebase/remembrall-firebase.json:/data/firebase/remembrall-firebase.json
   nginx:
     image: nginx:1.18.0
     ports:
@@ -16,7 +17,7 @@ services:
       - /etc/letsencrypt/live/remembrall.de/fullchain.pem:/etc/nginx/certs/remembrall.pem
       - /etc/letsencrypt/live/remembrall.de/privkey.pem:/etc/nginx/certs/remembrall.key
     depends_on:
-      - remembrall 
+      - remembrall
 
   maria-db:
     image: mariadb:10.4.8
@@ -30,3 +31,4 @@ services:
 
 volumes:
   maria-db-storage:
+
