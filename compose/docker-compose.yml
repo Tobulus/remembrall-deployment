@@ -5,6 +5,7 @@ services:
     image: $IMAGE
     depends_on:
       - maria-db
+      - redis
     volumes:
       - /data/firebase/remembrall-firebase.json:/data/firebase/remembrall-firebase.json
   nginx:
