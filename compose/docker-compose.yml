@@ -28,6 +28,9 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - maria-db-storage:/var/lib/mysql
+  
+  redis:
+    image: redis:6.0.5
 
 volumes:
   maria-db-storage:
