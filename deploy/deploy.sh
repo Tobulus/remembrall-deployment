@@ -21,8 +21,9 @@ ssh $server "
    docker load < ${tmp_file_name}
    rm ${tmp_file_name}
    cd /data/compose
-   docker-compose down
-   IMAGE=${image} docker-compose up -d
+   docker-compose stop -t 5 remembrall
+   IMAGE=${image} docker-compose create remembrall
+   IMAGE=${image} docker-compose start remembrall
 "
 echo "Restarted application"
 
