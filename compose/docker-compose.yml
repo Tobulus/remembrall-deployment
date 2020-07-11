@@ -8,6 +8,7 @@ services:
       - redis
     volumes:
       - /data/firebase/remembrall-firebase.json:/data/firebase/remembrall-firebase.json
+      - /data/mail/mail.conf:/data/mail/mail.conf
   nginx:
     image: nginx:1.18.0
     ports:
