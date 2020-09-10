@@ -3,14 +3,17 @@ version: '3.3'
 services:
   remembrall:
     image: $IMAGE
+    restart: always
     depends_on:
       - maria-db
       - redis
     volumes:
       - /data/firebase/remembrall-firebase.json:/data/firebase/remembrall-firebase.json
       - /data/mail/mail.conf:/data/mail/mail.conf
+
   nginx:
     image: nginx:1.18.0
+    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -23,6 +26,7 @@ services:
 
   maria-db:
     image: mariadb:10.4.8
+    restart: always
     environment:
       MYSQL_DATABASE: remembrall
       MYSQL_USER: remembrall
@@ -35,6 +39,7 @@ services:
   
   redis:
     image: redis:6.0.5
+    restart: always
     ports:
       - "127.0.0.1:6379:6379"
 
